@@ -1,0 +1,5 @@
+# default values (used when CLI flags are not supplied)
+default_principal=100000
+default_interest=12
+default_tenure_months=360
+currency_symbol=PKR
