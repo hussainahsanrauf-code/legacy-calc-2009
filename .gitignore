@@ -1,3 +1,17 @@
+# build artifacts
+*.o
+*.exe
+calc
+*.out
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+
+
 *.[oa]
 *~
 *.mk
