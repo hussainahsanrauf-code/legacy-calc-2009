@@ -2,19 +2,24 @@
 #include <cassert>
 #include "../src/Loan.h"
 
+// simple long-double abs (macOS doesn't provide fabsl)
+long double ld_abs(long double x) {
+    return x < 0 ? -x : x;
+}
+
 int main() {
-    // zero interest test
-    {
-        Loan L(1200.0L, 0.0L, 12);
-        long double emi = L.monthlyEMI();
-        assert(fabsl(emi - 100.0L) < 1e-12L);
-        std::cout << "Zero-interest test passed\n";
-    }
-    // sanity test (prints value)
-    {
-        Loan L(100000.0L, 12.0L, 360);
-        long double emi = L.monthlyEMI();
-        std::cout << "EMI for 100000 @12% over 360 months: " << emi << "\n";
-    }
+    // Test: principal = 1200, rate = 12% annual, tenure = 12 months
+    Loan loan(1200.0L, 12.0L, 12);
+
+    long double emi = loan.monthlyEMI();
+
+    // expected EMI ≈ 106.62
+    long double expected = 106.62L;
+
+    // compare with small tolerance
+    assert(ld_abs(emi - expected) < 1e-2L);
+
+    std::cout << "Test passed.\n";
     return 0;
 }
+
